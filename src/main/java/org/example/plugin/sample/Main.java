@@ -40,7 +40,9 @@ public final class Main extends JavaPlugin implements Listener {
     public void onPlayerToggleSneak(PlayerToggleSneakEvent e) {
         // イベント発生時のプレイヤーやワールドなどの情報を変数に持つ。
         Player player = e.getPlayer();
+        //     ↑変数 変更する時はリファクタリング
         World world = player.getWorld();
+
 
         List<Color> colorList = List.of(Color.RED, Color.BLUE, Color.WHITE, Color.BLACK);
         if (count % 2 == 0) {
@@ -57,10 +59,11 @@ public final class Main extends JavaPlugin implements Listener {
                 fireworkMeta.addEffect(
                         FireworkEffect.builder()
                                 .withColor(color)
-                                .with(Type.STAR)
+                                .with(Type.BALL_LARGE)
                                 .withFlicker()
                                 .build());
-                fireworkMeta.setPower(0);
+                fireworkMeta.setPower(1 + 1 + (2 * 2) * 5);
+
 
                 // 追加した情報で再設定する。
                 firework.setFireworkMeta(fireworkMeta);
