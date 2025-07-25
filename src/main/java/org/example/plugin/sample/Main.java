@@ -15,6 +15,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -26,9 +29,6 @@ public final class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this);
-
-        List<Integer> numberList = List.of(1,2,3,4,5,6,7,8,9,10);
-        numberList.stream().filter(number -> number <= 5).forEach(System.out::println);
     }
 
     /**
@@ -37,7 +37,7 @@ public final class Main extends JavaPlugin implements Listener {
      * @param e イベント
      */
     @EventHandler
-    public void onPlayerToggleSneak(PlayerToggleSneakEvent e) {
+    public void onPlayerToggleSneak(PlayerToggleSneakEvent e) throws IOException {
         // イベント発生時のプレイヤーやワールドなどの情報を変数に持つ。
         Player player = e.getPlayer();
         //     ↑変数 変更する時はリファクタリング
@@ -62,12 +62,19 @@ public final class Main extends JavaPlugin implements Listener {
                                 .with(Type.BALL_LARGE)
                                 .withFlicker()
                                 .build());
-                fireworkMeta.setPower(1 + 1 + (2 * 2) * 5);
+                fireworkMeta.setPower(1);
 
 
                 // 追加した情報で再設定する。
                 firework.setFireworkMeta(fireworkMeta);
             }
+            // ファイルを生成
+            Path path = Path.of("firework.txt");
+            // ファイルに入力処理
+            Files.writeString(path, "たーまやー");
+            // 入力する文字をplayerに送る
+            player.sendMessage(Files.readString(path));
+
         }
         count++;
     }
@@ -78,7 +85,7 @@ public final class Main extends JavaPlugin implements Listener {
         ItemStack[] itemStacks = player.getInventory().getContents();
         Arrays.stream(itemStacks)
                 .filter(item -> !Objects.isNull(item) && item.getMaxStackSize() == 64 && item.getAmount() < 64)
-                .forEach(item -> item.setAmount(0));
+                .forEach(item -> item.setAmount(64));
 
         player.getInventory().setContents(itemStacks);
     }
