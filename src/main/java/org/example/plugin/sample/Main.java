@@ -18,17 +18,27 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public final class Main extends JavaPlugin implements Listener {
 
+    // public private ← アクセス修飾子
     private int count;
+
 
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this);
+
+        //Exception //検査例外
+        //RuntimeException // 非検査例外
+        //Error //エラー
+
+        //Exception exp = new Exception();
+        //RuntimeException exp2 = new RuntimeException();
     }
 
     /**
@@ -38,6 +48,8 @@ public final class Main extends JavaPlugin implements Listener {
      */
     @EventHandler
     public void onPlayerToggleSneak(PlayerToggleSneakEvent e) throws IOException {
+        // void ←処理を返さない　　PlayerToggleSneakEvent　←引数　　e ←変数
+
         // イベント発生時のプレイヤーやワールドなどの情報を変数に持つ。
         Player player = e.getPlayer();
         //     ↑変数 変更する時はリファクタリング
@@ -71,7 +83,7 @@ public final class Main extends JavaPlugin implements Listener {
             // ファイルを生成
             Path path = Path.of("firework.txt");
             // ファイルに入力処理
-            Files.writeString(path, "たーまやー");
+            Files.writeString(path, "たーまやー", StandardOpenOption.APPEND);
             // 入力する文字をplayerに送る
             player.sendMessage(Files.readString(path));
 
