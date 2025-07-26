@@ -3,4 +3,5 @@ version: 1.0
 main: org.example.plugin.sample.Main
 api-version: 1.19
 commands:
-  levelup:
+  setlevel:
+  allsetlevel:
