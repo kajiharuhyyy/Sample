@@ -33,6 +33,7 @@ public final class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this);
+        getCommand("levelup").setExecutor(new LevelUpCommand());
 
         // 例外処理
         //Exception //検査例外
@@ -84,13 +85,6 @@ public final class Main extends JavaPlugin implements Listener {
                 // 追加した情報で再設定する。
                 firework.setFireworkMeta(fireworkMeta);
             }
-            // ファイルを生成
-            Path path = Path.of("firework.txt");
-            // ファイルに入力処理
-            Files.writeString(path, "たーまやー", StandardOpenOption.APPEND);
-            // 入力する文字をplayerに送る
-            player.sendMessage(Files.readString(path));
-
         }
         count++;
     }
