@@ -33,12 +33,15 @@ public final class Main extends JavaPlugin implements Listener {
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this);
 
+        // 例外処理
         //Exception //検査例外
         //RuntimeException // 非検査例外
         //Error //エラー
 
         //Exception exp = new Exception();
         //RuntimeException exp2 = new RuntimeException();
+
+
     }
 
     /**
