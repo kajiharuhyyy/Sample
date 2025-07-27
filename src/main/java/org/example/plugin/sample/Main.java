@@ -17,9 +17,6 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -32,8 +29,10 @@ public final class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
+
         Bukkit.getPluginManager().registerEvents(this, this);
-        getCommand("setlevel").setExecutor(new SetLevelCommand());
+        getCommand("setlevel").setExecutor(new SetLevelCommand(this));
         getCommand("allsetlevel").setExecutor(new AllSetLevelCommand());
 
         // 例外処理
